@@ -1,0 +1,73 @@
+
+<!-- Main Nav Bar and outlet -->
+  <script type="text/x-handlebars">
+    <nav class="top-bar">
+      <ul class="title-area">
+        <li class="name">
+          <h1>{{#linkTo index}}The Binary Solution{{/linkTo}}</h1>
+        </li>
+      </ul>
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+          <li class="divider"></li>
+          <li><a href="/#/questions/new">Add an Question</a></li>
+        </ul>
+      </section>
+    </nav>
+    {{outlet}}
+  </script>
+
+<!-- List of questions -->
+<script type="text/x-handlebars" id="questions">
+  <div class="row">
+    <div class-"large-8 large-centered columns">
+      <h1 class="impact">Question of the day</h1>
+      <p>Got something to decide on? Stick the question and two options in and let random strangers decide your fate</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      {{#each question in model}}
+        <h3 class="logo">{{#linkTo questions.show question }}{{question.questionline}}{{/linkTo}}</h3>
+      {{/each}}
+    </div>
+  <div class="large-6 columns">
+    {{outlet}}
+  </div>
+</div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="questions/show">
+  <div class="row">
+    <div class="large-12 columns">
+      <h2 class="chunky">
+        {{model.questionline}}
+      </h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 small-12 columns">
+      {{#each answer in model.answers}}
+      <p>{{answer.answer1}}</p>
+      <button class="button tiny radius">Vote up</button>
+      <p>{{answer.answer2}}</p>
+      <button class="button tiny radius">Vote up</button>
+      {{/each}}
+    </div>
+  </div>
+</script>
+
+<script type="text/x-handlebars" id="questions/new">
+  <h2>Add a new Question</h2>
+    <form>
+      <p>{{view Ember.TextField valueBinding="name" placeholder="Your Name"}}</p>
+      <p>{{view Ember.TextField valueBinding="email" placeholder="Email Address"}}</p>
+      <p>{{view Ember.TextArea valueBinding="questionline" placeholder="What"}}</p>
+      <h3>Add answer 1</h3>
+      <p>{{view Ember.TextArea valueBinding="answer1" placeholder="Answer 1"}}</p>
+      <h3>Add answer 2</h3>
+      <p>{{view Ember.TextArea valueBinding="answer2" placeholder="Answer 2"}}</p>
+      <p><button {{action save}} type="submit" class="button small radius">Post Your Question</button></p>
+    </form>
+</script>
